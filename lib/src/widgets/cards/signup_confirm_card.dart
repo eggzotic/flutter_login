@@ -32,13 +32,16 @@ class _ConfirmSignupCardState extends State<_ConfirmSignupCard>
   var _isSubmitting = false;
   var _code = '';
 
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
+
   @override
   void initState() {
     super.initState();
 
     _fieldSubmitController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: animated ? 1000 : 1),
     );
   }
 
@@ -164,7 +167,8 @@ class _ConfirmSignupCardState extends State<_ConfirmSignupCard>
         onPressed: !_isSubmitting ? _resendCode : null,
         child: Text(
           messages.resendCodeButton,
-          style: theme.textTheme.bodyMedium,
+          style: theme.textTheme.bodyMedium
+              ?.copyWith(color: theme.colorScheme.primary),
           textAlign: TextAlign.left,
         ),
       ),
@@ -189,7 +193,7 @@ class _ConfirmSignupCardState extends State<_ConfirmSignupCard>
         onPressed: !_isSubmitting ? widget.onBack : null,
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        textColor: theme.primaryColor,
+        textColor: theme.colorScheme.primary,
         child: Text(messages.goBackButton),
       ),
     );

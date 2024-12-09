@@ -494,7 +494,8 @@ class _FlutterLoginState extends State<FlutterLogin>
     with TickerProviderStateMixin {
   final GlobalKey<AuthCardState> authCardKey = GlobalKey();
 
-  static const loadingDuration = Duration(milliseconds: 400);
+  late final animated = widget.theme?.animated ?? true;
+  late final loadingDuration = Duration(milliseconds: animated ? 400 : 1);
   double _selectTimeDilation = 1.0;
 
   late AnimationController _loadingController;
@@ -527,7 +528,7 @@ class _FlutterLoginState extends State<FlutterLogin>
       duration: loadingDuration,
     );
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: animated ? 1 : 0), () {
       if (mounted) {
         _loadingController.forward();
       }

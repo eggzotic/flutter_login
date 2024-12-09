@@ -122,6 +122,9 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
   late Animation<double> _cardOverlayHeightFactorAnimation;
   late Animation<double> _cardOverlaySizeAndOpacityAnimation;
 
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
+
   @override
   void initState() {
     super.initState();
@@ -144,13 +147,13 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
 
     _formLoadingController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1150),
-      reverseDuration: const Duration(milliseconds: 300),
+      duration: Duration(milliseconds: animated ? 1150 : 1),
+      reverseDuration: Duration(milliseconds: animated ? 300 : 1),
     );
 
     _routeTransitionController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1100),
+      duration: Duration(milliseconds: animated ? 1100 : 1),
     );
 
     _cardSizeAnimation =
@@ -218,7 +221,7 @@ class AuthCardState extends State<AuthCard> with TickerProviderStateMixin {
     setState(() {
       _pageController.animateToPage(
         newCardIndex,
-        duration: const Duration(milliseconds: 500),
+        duration: Duration(milliseconds: animated ? 500 : 1),
         curve: Curves.ease,
       );
       _pageIndex = newCardIndex;

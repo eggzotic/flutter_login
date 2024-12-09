@@ -50,6 +50,8 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
   late Animation<double> _buttonScaleAnimation;
 
   bool _isSubmitting = false;
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
 
   @override
   void initState() {
@@ -72,7 +74,7 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
         .map(
           (e) => AnimationController(
             vsync: this,
-            duration: const Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: animated ? 1000 : 1),
           ),
         )
         .toList();
@@ -85,7 +87,7 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
 
     _submitController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: animated ? 1000 : 1),
     );
 
     _buttonScaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(

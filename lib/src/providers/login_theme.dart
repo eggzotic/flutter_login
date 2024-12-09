@@ -63,6 +63,7 @@ class LoginTheme with ChangeNotifier {
     this.headerMargin,
     this.cardInitialHeight,
     this.cardTopPosition,
+    this.animated = true,
   });
 
   /// The background color of the login page for light gradient; if provided,
@@ -154,4 +155,9 @@ class LoginTheme with ChangeNotifier {
   ///
   /// Default: deviceSize.height / 2 - cardInitialHeight / 2
   final double? cardTopPosition;
+
+  /// Whether to use the various animations - when false, disables animations
+  /// except the FlushBar.
+  /// Default: true
+  final bool animated;
 }

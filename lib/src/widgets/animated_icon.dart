@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_login/flutter_login.dart';
 
 import 'package:flutter_login/src/widgets/ring.dart';
+import 'package:provider/provider.dart';
 
 ///similar a AnimatedButton but has an icon instead of textButton
 //(basically its a modified version of the AnimatedButton Widget and may need to be cleaned up)
@@ -169,12 +171,15 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
     );
   }
 
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
+
   Widget _buildButton(ThemeData theme) {
     final buttonTheme = theme.floatingActionButtonTheme;
     return FadeTransition(
       opacity: _buttonOpacityAnimation,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+        duration: Duration(milliseconds: animated ? 300 : 1),
         child: AnimatedBuilder(
           animation: _colorAnimation,
           builder: (context, child) => Material(

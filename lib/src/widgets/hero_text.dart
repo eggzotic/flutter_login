@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login/flutter_login.dart';
+import 'package:provider/provider.dart';
 
 /// https://uxdesign.cc/level-up-flutter-page-transition-choreographing-animations-across-screens-efb5ea105fca
 enum ViewState {
@@ -45,6 +47,8 @@ class __HeroTextContentState extends State<_HeroTextContent>
   late AnimationController _controller;
   late Animation<double> _fontSizeTween;
   double? fontSize;
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
 
   @override
   void initState() {
@@ -52,7 +56,7 @@ class __HeroTextContentState extends State<_HeroTextContent>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: Duration(milliseconds: animated ? 600 : 1),
     )..addListener(() {
         setState(() => fontSize = _fontSizeTween.value);
       });

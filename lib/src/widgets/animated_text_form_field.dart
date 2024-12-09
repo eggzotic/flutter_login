@@ -7,6 +7,7 @@ import 'package:flutter_login/src/widgets/term_of_service_checkbox.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart' as pnp;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 enum TextFieldInertiaDirection {
@@ -490,6 +491,8 @@ class AnimatedPasswordTextFormField extends StatefulWidget {
 class _AnimatedPasswordTextFormFieldState
     extends State<AnimatedPasswordTextFormField> {
   var _obscureText = true;
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
 
   @override
   Widget build(BuildContext context) {
@@ -506,7 +509,7 @@ class _AnimatedPasswordTextFormFieldState
         onTap: () => setState(() => _obscureText = !_obscureText),
         dragStartBehavior: DragStartBehavior.down,
         child: AnimatedCrossFade(
-          duration: const Duration(milliseconds: 250),
+          duration: Duration(milliseconds: animated ? 250 : 1),
           firstCurve: Curves.easeInOutSine,
           secondCurve: Curves.easeInOutSine,
           alignment: Alignment.center,

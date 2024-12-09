@@ -36,6 +36,9 @@ class _RecoverCardState extends State<_RecoverCard>
 
   late AnimationController _submitController;
 
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +48,7 @@ class _RecoverCardState extends State<_RecoverCard>
 
     _submitController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: animated ? 1000 : 1),
     );
   }
 

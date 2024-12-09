@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_login/src/widgets/animated_text.dart';
 import 'package:flutter_login/src/widgets/ring.dart';
+import 'package:provider/provider.dart';
 
 class AnimatedButton extends StatefulWidget {
   const AnimatedButton({
@@ -41,6 +43,9 @@ class _AnimatedButtonState extends State<AnimatedButton>
   static const _height = 40.0;
   static const _loadingCircleRadius = _height / 2;
   static const _loadingCircleThickness = 4.0;
+
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
 
   @override
   void initState() {
@@ -188,7 +193,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
     return FadeTransition(
       opacity: _buttonOpacityAnimation,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+        duration: Duration(milliseconds: animated ? 300 : 1),
         child: AnimatedBuilder(
           animation: _colorAnimation,
           builder: (context, child) => Material(

@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/flutter_login.dart';
 
 import 'package:flutter_login/src/utils/math_helper.dart';
 import 'package:flutter_login/src/utils/matrix.dart';
 import 'package:flutter_login/src/utils/widget_helper.dart';
+import 'package:provider/provider.dart';
 
 enum AnimatedTextRotation { up, down }
 
@@ -37,6 +39,8 @@ class _AnimatedTextState extends State<AnimatedText>
   late AnimationController _controller;
 
   double get radius => _layoutHeight! / 2;
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
 
   @override
   void initState() {
@@ -44,7 +48,7 @@ class _AnimatedTextState extends State<AnimatedText>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: animated ? 500 : 1),
     );
 
     _animation = Tween<double>(begin: 0.0, end: pi / 2).animate(

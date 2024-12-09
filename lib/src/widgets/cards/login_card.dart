@@ -82,6 +82,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
   bool get buttonEnabled => !_isLoading && !_isSubmitting;
 
+  late final animated =
+      Provider.of<LoginTheme>(context, listen: false).animated;
+
   @override
   void initState() {
     super.initState();
@@ -95,21 +98,21 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
     _switchAuthController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: Duration(milliseconds: animated ? 800 : 1),
     );
     _postSwitchAuthController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 150),
+      duration: Duration(milliseconds: animated ? 150 : 1),
     );
     _submitController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: animated ? 1000 : 1),
     );
     _providerControllerList = auth.loginProviders
         .map(
           (e) => AnimationController(
             vsync: this,
-            duration: const Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: animated ? 1000 : 1),
           ),
         )
         .toList();
@@ -219,7 +222,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
     // workaround to run after _cardSizeAnimation in parent finished
     // need a cleaner way but currently it works so..
-    Future.delayed(const Duration(milliseconds: 270), () {
+    Future.delayed(Duration(milliseconds: animated ? 270 : 1), () {
       if (mounted) {
         setState(() => _showShadow = false);
       }
@@ -234,7 +237,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         showErrorToast(context, messages.flushbarTitleError, error!);
       }
 
-      Future.delayed(const Duration(milliseconds: 271), () {
+      Future.delayed(Duration(milliseconds: animated ? 271 : 1), () {
         if (mounted) {
           setState(() => _showShadow = true);
         }
@@ -308,7 +311,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
 
     // workaround to run after _cardSizeAnimation in parent finished
     // need a cleaner way but currently it works so..
-    Future.delayed(const Duration(milliseconds: 270), () {
+    Future.delayed(Duration(milliseconds: animated ? 270 : 1), () {
       if (mounted) {
         setState(() => _showShadow = false);
       }
@@ -325,7 +328,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
         }
       }
 
-      Future.delayed(const Duration(milliseconds: 271), () {
+      Future.delayed(Duration(milliseconds: animated ? 271 : 1), () {
         if (mounted) {
           setState(() => _showShadow = true);
         }
@@ -356,7 +359,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             }
           }
 
-          Future.delayed(const Duration(milliseconds: 271), () {
+          Future.delayed(Duration(milliseconds: animated ? 271 : 1), () {
             if (mounted) {
               setState(() => _showShadow = true);
             }
