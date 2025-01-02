@@ -753,7 +753,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             onExpandCompleted: () => _postSwitchAuthController.forward(),
             child: Column(
               children: [
-                if (!isSignup || !widget.hideSignupPasswordFields)
+                if (isSignup && !widget.hideSignupPasswordFields) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: _buildConfirmPasswordField(
@@ -762,11 +762,12 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
                       auth,
                     ),
                   ),
-                for (final e in auth.termsOfService)
-                  TermCheckbox(
-                    termOfService: e,
-                    validation: auth.isSignup,
-                  ),
+                  for (final e in auth.termsOfService)
+                    TermCheckbox(
+                      termOfService: e,
+                      validation: auth.isSignup,
+                    ),
+                ],
               ],
             ),
           ),
