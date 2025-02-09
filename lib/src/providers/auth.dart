@@ -60,6 +60,7 @@ class Auth with ChangeNotifier {
     String confirmPassword = '',
     AuthMode initialAuthMode = AuthMode.login,
     this.termsOfService = const [],
+    required this.hideLoginButton,
   })  : _email = email,
         _password = password,
         _confirmPassword = confirmPassword,
@@ -75,6 +76,7 @@ class Auth with ChangeNotifier {
   final SignupCallback? onResendCode;
   final List<TermOfService> termsOfService;
   final BeforeAdditionalFieldsCallback? beforeAdditionalFieldsCallback;
+  final bool hideLoginButton;
 
   AuthType _authType = AuthType.userPassword;
 

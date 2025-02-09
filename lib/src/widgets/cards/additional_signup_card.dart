@@ -261,6 +261,8 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
     const cardPadding = 16.0;
     final textFieldWidth = cardWidth - cardPadding * 2;
 
+    final auth = Provider.of<Auth>(context, listen: false);
+
     return FittedBox(
       child: Card(
         child: Container(
@@ -288,7 +290,9 @@ class _AdditionalSignUpCardState extends State<_AdditionalSignUpCard>
                 _buildFields(textFieldWidth),
                 const SizedBox(height: 5),
                 _buildSubmitButton(theme, messages),
-                _buildBackButton(theme, messages, widget.loginTheme),
+                // Don't provide a back/cancel-button if 
+                if (!auth.hideLoginButton)
+                  _buildBackButton(theme, messages, widget.loginTheme),
               ],
             ),
           ),

@@ -315,8 +315,14 @@ class FlutterLogin extends StatefulWidget {
     this.initialIsoCode,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.hideSignupPasswordFields = false,
+    this.hideLoginButton = false,
     this.onSwitchAuthMode,
   })  : assert((logo is String?) || (logo is ImageProvider?)),
+        assert(
+          !hideLoginButton ||
+              (onSignup != null && initialAuthMode == AuthMode.signup),
+          "both onSignUp must be non-null, and initial auth mode must be AuthMode.signup, in order to hide the login button",
+        ),
         logo = logo is String ? AssetImage(logo) : logo as ImageProvider?;
 
   /// Called when the user hit the submit button when in sign up mode
@@ -466,6 +472,10 @@ class FlutterLogin extends StatefulWidget {
   /// may use OTP (e.g. Authenticator apps, 1-time email-codes) only.
   /// Default: false
   final bool hideSignupPasswordFields;
+
+  /// Whether to hide the sign-in button - useful for a user-registration only flow
+  /// Default: false
+  final bool hideLoginButton;
 
   /// Called when the user switches between sign-in and sign-up mode
   final void Function(AuthMode mode)? onSwitchAuthMode;
@@ -821,6 +831,7 @@ class _FlutterLoginState extends State<FlutterLogin>
             onResendCode: widget.onResendCode,
             termsOfService: widget.termsOfService,
             initialAuthMode: widget.initialAuthMode,
+            hideLoginButton: widget.hideLoginButton,
           ),
         ),
       ],
@@ -859,7 +870,8 @@ class _FlutterLoginState extends State<FlutterLogin>
                               onSubmit: _reverseHeaderAnimation,
                               onSubmitCompleted:
                                   widget.onSubmitAnimationCompleted,
-                              hideSignUpButton: widget.onSignup == null,
+                              hideSignUpButton: widget.onSignup == null ||
+                                  widget.hideLoginButton,
                               hideForgotPasswordButton:
                                   widget.hideForgotPasswordButton,
                               loginAfterSignUp: widget.loginAfterSignUp,
