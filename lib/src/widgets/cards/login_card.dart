@@ -228,7 +228,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       }
     });
 
-    if (context.mounted) {
+    if (mounted) {
       await _submitController.reverse();
     }
 
